@@ -1,0 +1,13 @@
+version: '3'
+
+
+services:
+  bot: &bot
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: tg_bot
+    container_name: tg_bot
+    env_file:
+      - ./.env
+    command: python main.py
