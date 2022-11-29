@@ -3,7 +3,9 @@ import time
 from aiogram import types
 from aiogram.utils.callback_data import CallbackData
 
+import config
 from src.handlers.client import get_products, parse_products
+from src.handlers.filter import IsAdmin
 from src.loader import dp, bot
 from config import DOMAIN
 
@@ -37,11 +39,10 @@ def price_keyboard(_cb, _next: str, _previous: str) -> types.InlineKeyboardMarku
     return keyboard
 
 
-# "Заниженная цена WB (<5%)" и "Распродажа WB (>5%)"
 cb = get_callback_data_r_url()
 
 
-@dp.message_handler(commands=["lt"])
+@dp.message_handler(IsAdmin(), commands=["lt"])
 async def get_underprice_products_handler(message: types.Message):
     data = get_products('lt')
     if not data:
@@ -67,7 +68,7 @@ async def get_underprice_products_handler(message: types.Message):
         await message.answer(text="❌ Нет данных")
 
 
-@dp.message_handler(commands=["lte_zero"])
+@dp.message_handler(IsAdmin(), commands=["lte_zero"])
 async def get_lte_zero_products_handler(message: types.Message):
     data = get_products('lte_zero')
     if not data:
@@ -93,7 +94,7 @@ async def get_lte_zero_products_handler(message: types.Message):
         await message.answer(text="❌ Нет данных")
 
 
-@dp.message_handler(commands=["gte"])
+@dp.message_handler(IsAdmin(), commands=["gte"])
 async def get_sale_products_handler(message: types.Message):
     data = get_products('gte')
     if not data:
@@ -119,7 +120,7 @@ async def get_sale_products_handler(message: types.Message):
         await message.answer(text="❌ Нет данных")
 
 
-@dp.callback_query_handler(cb.filter())
+@dp.callback_query_handler(IsAdmin(), cb.filter())
 async def next_previous_handler(call: types.CallbackQuery, callback_data: dict):
 
     await call.answer("Информация загружается")
@@ -156,11 +157,16 @@ async def null_handler(call: types.CallbackQuery):
     await call.answer("тык!")
 
 
-@dp.message_handler(commands=["start"])
+@dp.message_handler(IsAdmin(), commands=["start"])
 async def start(message: types.Message):
-    c = await bot.get_chat_member("-865002303", message.from_user.id)
-    print(c)
+    await message.answer(text="Привет!")
 
 
-
+@dp.message_handler(commands=["help"])
+async def start(message: types.Message):
+    await message.answer(
+        text=f"chat_id: {message.chat.id}\n"
+             f"user_id: {message.from_user.id}\n"
+             f"username: {message.from_user.username}"
+    )
 

@@ -11,3 +11,5 @@ BOT_TOKEN = os.getenv("TOKEN_BOT")
 
 DOMAIN = os.getenv("DOMAIN")
 PAGE_SIZE = int(os.getenv("PAGE_SIZE"))
+
+CHAT_ID = os.getenv("CHAT_ID")
