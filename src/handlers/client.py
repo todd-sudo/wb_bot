@@ -17,7 +17,10 @@ def get_products(sort: str, url: str = ""):
     while True:
         if count > 10:
             return {}
-        response = requests.get(url=_url)
+        try:
+            response = requests.get(url=_url)
+        except requests.exceptions.SSLError:
+            response = requests.get(url=_url, verify=False)
         data = response.json()
         if response and response.status_code == 200:
             break
@@ -77,7 +80,9 @@ SKU: {0}
 Кол-во на складе: {8}/{9} шт.
 
 Дата обновления: {10}
+
 {11}
+
 """.format(
         sku_link,
         name,
@@ -91,7 +96,7 @@ SKU: {0}
         count_in_stock,
         count_in_stock_old,
         date_updated,
-        image
+        image,
     )
 
     return message

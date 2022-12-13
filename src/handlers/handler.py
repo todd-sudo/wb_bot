@@ -42,9 +42,9 @@ def price_keyboard(_cb, _next: str, _previous: str) -> types.InlineKeyboardMarku
 cb = get_callback_data_r_url()
 
 
-@dp.message_handler(IsAdmin(), commands=["lt"])
+@dp.message_handler(IsAdmin(), commands=["gt"])
 async def get_underprice_products_handler(message: types.Message):
-    data = get_products('lt')
+    data = get_products('gt')
     if not data:
         await message.answer("🆘 Произошла ошибка получения данных!")
         return
@@ -68,9 +68,9 @@ async def get_underprice_products_handler(message: types.Message):
         await message.answer(text="❌ Нет данных")
 
 
-@dp.message_handler(IsAdmin(), commands=["lte_zero"])
+@dp.message_handler(IsAdmin(), commands=["gte_zero"])
 async def get_lte_zero_products_handler(message: types.Message):
-    data = get_products('lte_zero')
+    data = get_products('gte_zero')
     if not data:
         await message.answer("🆘 Произошла ошибка получения данных!")
         return
@@ -94,9 +94,9 @@ async def get_lte_zero_products_handler(message: types.Message):
         await message.answer(text="❌ Нет данных")
 
 
-@dp.message_handler(IsAdmin(), commands=["gte"])
+@dp.message_handler(IsAdmin(), commands=["lte"])
 async def get_sale_products_handler(message: types.Message):
-    data = get_products('gte')
+    data = get_products("lte")
     if not data:
         await message.answer("🆘 Произошла ошибка получения данных!")
         return
