@@ -61,10 +61,10 @@ def parse_products(item: dict) -> str:
         is_active = "Да"
     else:
         is_active = "Нет"
-    date_updated = item.get("date_updated").split("T")
-    _date = date_updated[0]
-    _time = date_updated[1].split(".")[0]
-    date_updated = f"{_date} {_time}"
+    date_updated = item.get("date_updated") #.split("T")
+    # _date = date_updated[0]
+    # _time = date_updated[1].split(".")[0]
+    # date_updated = f"{_date} {_time}"
     image = get_image_url(sku)
     image = hlink("🖥 Изображение:", image)
     sku_link = hlink(sku, url)
