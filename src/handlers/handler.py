@@ -43,7 +43,7 @@ cb = get_callback_data_r_url()
 
 
 @dp.message_handler(IsAdmin(), commands=["gt"])
-async def get_underprice_products_handler(message: types.Message):
+async def get_gt_products_handler(message: types.Message):
     data = get_products('gt')
     if not data:
         await message.answer("🆘 Произошла ошибка получения данных!")
@@ -68,9 +68,9 @@ async def get_underprice_products_handler(message: types.Message):
         await message.answer(text="❌ Нет данных")
 
 
-@dp.message_handler(IsAdmin(), commands=["gte_zero"])
-async def get_lte_zero_products_handler(message: types.Message):
-    data = get_products('gte_zero')
+@dp.message_handler(IsAdmin(), commands=["lt"])
+async def get_lt_products_handler(message: types.Message):
+    data = get_products('lt')
     if not data:
         await message.answer("🆘 Произошла ошибка получения данных!")
         return
@@ -94,9 +94,9 @@ async def get_lte_zero_products_handler(message: types.Message):
         await message.answer(text="❌ Нет данных")
 
 
-@dp.message_handler(IsAdmin(), commands=["lte"])
-async def get_sale_products_handler(message: types.Message):
-    data = get_products("lte")
+@dp.message_handler(IsAdmin(), commands=["gt_lt"])
+async def get_gt_lt_products_handler(message: types.Message):
+    data = get_products("gt_lt")
     if not data:
         await message.answer("🆘 Произошла ошибка получения данных!")
         return
