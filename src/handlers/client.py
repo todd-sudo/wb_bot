@@ -54,6 +54,7 @@ def parse_products(item: dict) -> str:
     count_in_stock_old = item.get("count_in_stock_old")
     basic_sale = item.get("basic_sale")
     client_sale = item.get("client_sale")
+    # TODO: price_no_sale - добавить цену из 1С
     price_no_sale = item.get("price_no_sale")
     basic_price = item.get("basic_price")
     is_active = item.get("is_active")
